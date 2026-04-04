@@ -1,0 +1,77 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+model User {
+  id        String   @id @default(uuid())
+  email     String   @unique
+  password  String
+  name      String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  savingsAccounts SavingsAccount[]
+  goals           Goal[]
+  transactions    Transaction[]
+
+  @@map("users")
+}
+
+model SavingsAccount {
+  id        String   @id @default(uuid())
+  userId    String
+  name      String
+  balance   Decimal  @default(0)
+  icon      String   @default("wallet")
+  color     String   @default("#10b981")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  user         User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  transactions Transaction[]
+  goals        Goal[]
+
+  @@map("savings_accounts")
+}
+
+model Goal {
+  id               String   @id @default(uuid())
+  userId           String
+  savingsAccountId String?
+  name             String
+  targetAmount     Decimal
+  currentAmount    Decimal  @default(0)
+  deadline         DateTime
+  status           String   @default("active")
+  icon             String   @default("target")
+  color            String   @default("#f59e0b")
+  createdAt        DateTime @default(now())
+  updatedAt        DateTime @updatedAt
+
+  user           User            @relation(fields: [userId], references: [id], onDelete: Cascade)
+  savingsAccount SavingsAccount? @relation(fields: [savingsAccountId], references: [id], onDelete: SetNull)
+
+  @@map("goals")
+}
+
+model Transaction {
+  id              String   @id @default(uuid())
+  userId          String
+  savingsAccountId String
+  type            String
+  amount          Decimal
+  description     String?
+  category        String?
+  date            DateTime @default(now())
+  createdAt       DateTime @default(now())
+
+  user           User           @relation(fields: [userId], references: [id], onDelete: Cascade)
+  savingsAccount SavingsAccount @relation(fields: [savingsAccountId], references: [id], onDelete: Cascade)
+
+  @@map("transactions")
+}

@@ -1,36 +1,219 @@
-This is a [Next.js](https://nextjs.org) project bootstrapped with [`create-next-app`](https://nextjs.org/docs/app/api-reference/cli/create-next-app).
+# BeRich - Personal Finance Management Platform
 
-## Getting Started
+A modern, full-stack personal finance management application built with Next.js 16, shadcn/ui, Tailwind CSS, and PostgreSQL.
 
-First, run the development server:
+## Features
 
-```bash
-npm run dev
-# or
-yarn dev
-# or
-pnpm dev
-# or
-bun dev
+- **Dashboard**: Overview of your total balance, monthly income/expenses, and active goals with progress tracking
+- **Savings Accounts**: Create and manage multiple savings accounts with custom icons and colors
+- **Goals Tracking**: Set financial goals with target amounts and deadlines, automatically track progress from linked savings accounts
+- **Transactions**: Record income and expenses, automatically update account balances
+- **Authentication**: Secure user authentication with NextAuth.js
+- **Modern UI**: Beautiful, responsive interface with emerald and purple accent colors
+- **Mobile Responsive**: Fully responsive design that works on mobile and desktop
+
+## Tech Stack
+
+- **Frontend**: Next.js 16 (App Router), React 19, TypeScript
+- **UI Components**: shadcn/ui, Tailwind CSS, Lucide React icons
+- **Backend**: Next.js API Routes, Prisma ORM
+- **Database**: PostgreSQL
+- **Authentication**: NextAuth.js v4
+- **State Management**: React Query (TanStack Query)
+- **Validation**: Zod
+
+## Prerequisites
+
+- Node.js 18+ installed
+- PostgreSQL database server running
+- npm or yarn package manager
+
+## Database Setup
+
+The application uses PostgreSQL. You'll need to:
+
+1. Create a PostgreSQL database
+2. Update the `.env` file with your actual database credentials
+3. Run migrations
+
+### Example Database Configuration
+
+```
+DATABASE_URL="postgresql://username:password@localhost:5432/be_rich?schema=public"
 ```
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+Replace `username`, `password`, and `be_rich` with your actual PostgreSQL credentials.
 
-You can start editing the page by modifying `app/page.tsx`. The page auto-updates as you edit the file.
+## Installation
 
-This project uses [`next/font`](https://nextjs.org/docs/app/building-your-application/optimizing/fonts) to automatically optimize and load [Geist](https://vercel.com/font), a new font family for Vercel.
+1. Clone the repository:
+```bash
+git clone <repository-url>
+cd be-rich
+```
 
-## Learn More
+2. Install dependencies:
+```bash
+npm install
+```
 
-To learn more about Next.js, take a look at the following resources:
+3. Set up environment variables:
+```bash
+cp .env.example .env
+```
 
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
+Update the `.env` file with your actual database credentials.
 
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js) - your feedback and contributions are welcome!
+4. Generate Prisma client:
+```bash
+npx prisma generate
+```
 
-## Deploy on Vercel
+5. Run database migrations:
+```bash
+npx prisma migrate dev
+```
 
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
+6. Start the development server:
+```bash
+npm run dev
+```
 
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/app/building-your-application/deploying) for more details.
+7. Open [http://localhost:3000](http://localhost:3000) in your browser
+
+## Usage
+
+### Registration
+1. Navigate to the registration page
+2. Create your account with name, email, and password
+3. You'll be automatically logged in after registration
+
+### Dashboard
+The dashboard provides a quick overview of:
+- Total balance across all savings accounts (displayed in IDR)
+- Monthly income and expenses
+- Active goals count
+- Recent transactions
+- Top active goals with progress and days remaining
+
+### Managing Savings Accounts
+1. Go to the "Savings" page
+2. Click "Add Account" to create a new savings account
+3. Choose an icon, color, and initial balance
+4. View all your accounts and their balances
+5. Delete accounts with confirmation dialog
+
+### Tracking Goals
+1. Navigate to the "Goals" page
+2. Click "Create Goal" to set a new financial goal
+3. Specify the target amount and deadline
+4. Optionally link the goal to a savings account for automatic progress tracking
+5. Track your progress visually with progress bars
+6. View days remaining until deadline
+7. Delete goals with confirmation dialog
+
+**Auto-Tracking Feature:**
+- Link a savings account to your goal
+- Progress automatically updates based on the linked account's balance
+- When you add income to the savings account, goal progress increases automatically
+
+### Recording Transactions
+1. Go to the "Transactions" page
+2. Click "Add Transaction"
+3. Choose between income or expense
+4. Enter amount, description, and category
+5. Select which savings account to apply the transaction to
+6. The account balance will automatically update
+7. Delete transactions with confirmation dialog
+
+## Project Structure
+
+```
+be-rich/
+├── prisma/
+│   └── schema.prisma          # Database schema
+├── src/
+│   ├── app/
+│   │   ├── (dashboard)/       # Protected dashboard pages
+│   │   │   ├── page.tsx       # Dashboard
+│   │   │   ├── savings/       # Savings accounts
+│   │   │   ├── goals/         # Goals tracking
+│   │   │   └── transactions/ # Transactions
+│   │   ├── api/              # API routes
+│   │   │   ├── auth/         # Authentication
+│   │   │   ├── savings/      # Savings API
+│   │   │   ├── goals/       # Goals API
+│   │   │   ├── transactions/ # Transactions API
+│   │   │   └── dashboard/    # Dashboard API
+│   │   ├── login/           # Login page
+│   │   └── register/        # Registration page
+│   ├── components/
+│   │   ├── ui/              # shadcn components
+│   │   ├── layout/          # Layout components
+│   │   └── ...
+│   └── lib/
+│       ├── auth.ts           # NextAuth configuration
+│       ├── prisma.ts        # Prisma client
+│       └── getServerSession.ts
+├── .env.example             # Example environment variables
+├── .gitignore               # Git ignore file
+├── package.json
+└── README.md
+```
+
+## API Endpoints
+
+### Authentication
+- `POST /api/auth/register` - Register new user
+- `POST /api/auth/[...nextauth]` - NextAuth handlers
+
+### Savings Accounts
+- `GET /api/savings` - List all savings accounts
+- `POST /api/savings` - Create savings account
+- `GET /api/savings/[id]` - Get savings account
+- `PUT /api/savings/[id]` - Update savings account
+- `DELETE /api/savings/[id]` - Delete savings account
+
+### Goals
+- `GET /api/goals` - List all goals
+- `POST /api/goals` - Create goal
+- `GET /api/goals/[id]` - Get goal
+- `PUT /api/goals/[id]` - Update goal
+- `DELETE /api/goals/[id]` - Delete goal
+
+### Transactions
+- `GET /api/transactions` - List transactions
+- `POST /api/transactions` - Create transaction
+- `GET /api/transactions/[id]` - Get transaction
+- `DELETE /api/transactions/[id]` - Delete transaction
+
+### Dashboard
+- `GET /api/dashboard` - Get dashboard aggregated data
+
+## Development
+
+### Building for Production
+```bash
+npm run build
+npm start
+```
+
+### Linting
+```bash
+npm run lint
+```
+
+## Security Notes
+
+- Never commit actual credentials to the repository
+- Always use environment variables for sensitive data
+- The `.env` file is gitignored and will not be pushed
+- Use `.env.example` as a template with placeholder values
+
+## Contributing
+
+Contributions are welcome! Please feel free to submit a Pull Request.
+
+## License
+
+This project is licensed under the MIT License.
