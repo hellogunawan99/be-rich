@@ -1,288 +1,244 @@
-# BeRich - Personal Finance Management Platform
+# 💰 BeRich - Personal Finance Management Platform
 
-A modern, full-stack personal finance management application built with Next.js 16, shadcn/ui, Tailwind CSS, and PostgreSQL.
+<div align="center">
 
-## Features
+![Next.js](https://img.shields.io/badge/Next.js-16-black?style=for-the-badge&logo=next.js)
+![React](https://img.shields.io/badge/React-19-blue?style=for-the-badge&logo=react)
+![TypeScript](https://img.shields.io/badge/TypeScript-5.0-blue?style=for-the-badge&logo=typescript)
+![PostgreSQL](https://img.shields.io/badge/PostgreSQL-15-blue?style=for-the-badge&logo=postgresql)
+![Prisma](https://img.shields.io/badge/Prisma-5.0-2D3748?style=for-the-badge&logo=prisma)
+![Docker](https://img.shields.io/badge/Docker-Ready-2496ED?style=for-the-badge&logo=docker)
+![License](https://img.shields.io/badge/License-MIT-green?style=for-the-badge)
 
-- **Dashboard**: Overview of your total balance, monthly income/expenses, and active goals with progress tracking
-- **Savings Accounts**: Create and manage multiple savings accounts with custom icons and colors
-- **Goals Tracking**: Set financial goals with target amounts and deadlines, automatically track progress from linked savings accounts
-- **Transactions**: Record income and expenses, automatically update account balances
-- **Authentication**: Secure user authentication with NextAuth.js
-- **Modern UI**: Beautiful, responsive interface with emerald and purple accent colors
-- **Mobile Responsive**: Fully responsive design that works on mobile and desktop
+**Modern. Secure. Beautiful.** A full-featured personal finance application built with the latest tech stack.
 
-## Tech Stack
+[🚀 Live Demo](#live-demo) • [✨ Features](#features) • [🐳 Quick Start](#quick-start) • [📖 Documentation](#documentation) • [🤝 Contributing](#contributing)
 
-- **Frontend**: Next.js 16 (App Router), React 19, TypeScript
-- **UI Components**: shadcn/ui, Tailwind CSS, Lucide React icons
-- **Backend**: Next.js API Routes, Prisma ORM
-- **Database**: PostgreSQL
-- **Authentication**: NextAuth.js v4
-- **State Management**: React Query (TanStack Query)
-- **Validation**: Zod
+</div>
 
-## Prerequisites
+---
 
-- Node.js 18+ installed (for local development)
-- Docker and Docker Compose installed
-- npm or yarn package manager (for local development)
+## ✨ Features
 
-## Docker Deployment
+### 🎯 Core Features
 
-The easiest way to run BeRich is using Docker Compose, which will set up both the PostgreSQL database and the application.
+- **📊 Dashboard** - Real-time overview with total balance, monthly income/expenses, and goal progress tracking
+- **💒 Savings Accounts** - Create and manage multiple accounts with custom icons and colors
+- **🎯 Goals Tracking** - Set financial goals with target amounts and deadlines
+- **📈 Auto-Tracking** - Link goals to savings accounts for automatic progress updates
+- **💳 Transactions** - Record income and expenses with automatic balance updates
+- **🔐 Authentication** - Secure user authentication with NextAuth.js
 
-### Quick Start with Docker
+### 🎨 Modern UI/UX
 
-1. Clone the repository:
+- **💎 Beautiful Design** - Modern interface with emerald and purple accent colors
+- **📱 Mobile Responsive** - Fully responsive layout that works on all devices
+- **⚡ Smooth Animations** - Polished micro-interactions and transitions
+- **🌙 Light Theme** - Clean, easy-on-the-eyes light theme
+- **🎯 Intuitive Navigation** - User-friendly sidebar and hamburger menu
+
+### 🏗️ Technical Excellence
+
+- **🔒 Security First** - Password hashing with bcrypt, environment-based secrets
+- **🐳 Docker Ready** - Complete containerization with Docker Compose
+- **📦 Standalone Build** - Optimized production build with Next.js
+- **🗄️ Database** - PostgreSQL with Prisma ORM for type-safe queries
+- **✅ Type Safety** - Full TypeScript coverage
+- **🧪 Validation** - Zod schemas for API validation
+
+---
+
+## 🚀 Live Demo
+
+**Coming Soon** - The application is currently in development.
+
+---
+
+## 🐳 Quick Start
+
+### Prerequisites
+
+- [Node.js 18+](https://nodejs.org/)
+- [Docker](https://www.docker.com/) & [Docker Compose](https://docs.docker.com/compose/)
+- [Git](https://git-scm.com/)
+
+### Option 1: Docker (Recommended) 🐳
+
 ```bash
+# Clone the repository
 git clone https://github.com/hellogunawan99/be-rich.git
 cd be-rich
-```
 
-2. Start the application with Docker Compose:
-```bash
+# Start with Docker Compose
 docker-compose up -d
+
+# Access the app
+open http://localhost:3010
 ```
 
-3. Access the application:
-- **URL:** http://localhost:3010
-- **Database:** PostgreSQL on port 5432
+### Option 2: Local Development 💻
 
-4. To view logs:
 ```bash
-docker-compose logs -f app
-```
-
-5. To stop:
-```bash
-docker-compose down
-```
-
-6. To rebuild after code changes:
-```bash
-docker-compose up -d --build
-```
-
-### Docker Services
-
-**app** - Next.js application
-- Port: 3010
-- Depends on: db (PostgreSQL)
-
-**db** - PostgreSQL database
-- Port: 5432
-- Credentials: developer / CANcer471422;
-- Database: be_rich
-- Data persists in Docker volume
-
-### Environment Variables
-
-The application uses these environment variables (pre-configured in docker-compose.yml):
-- `DATABASE_URL` - PostgreSQL connection string
-- `NEXTAUTH_URL` - Authentication URL
-- `NEXTAUTH_SECRET` - Session secret key
-- `NEXT_PUBLIC_APP_URL` - Public app URL
-- `PORT` - Server port (3010)
-
-### Database Migrations
-
-When the container starts, you may need to run migrations manually:
-```bash
-docker-compose exec app npx prisma migrate deploy
-```
-
-Or to open Prisma Studio:
-```bash
-docker-compose exec app npx prisma studio
-```
-
-## Database Setup
-
-The application uses PostgreSQL. You'll need to:
-
-1. Create a PostgreSQL database
-2. Update the `.env` file with your actual database credentials
-3. Run migrations
-
-### Example Database Configuration
-
-```
-DATABASE_URL="postgresql://username:password@localhost:5432/be_rich?schema=public"
-```
-
-Replace `username`, `password`, and `be_rich` with your actual PostgreSQL credentials.
-
-## Installation
-
-1. Clone the repository:
-```bash
-git clone <repository-url>
+# Clone the repository
+git clone https://github.com/hellogunawan99/be-rich.git
 cd be-rich
-```
 
-2. Install dependencies:
-```bash
+# Install dependencies
 npm install
-```
 
-3. Set up environment variables:
-```bash
+# Set up environment
 cp .env.example .env
-```
 
-Update the `.env` file with your actual database credentials.
-
-4. Generate Prisma client:
-```bash
+# Generate Prisma client
 npx prisma generate
-```
 
-5. Run database migrations:
-```bash
+# Run database migrations
 npx prisma migrate dev
-```
 
-6. Start the development server:
-```bash
+# Start development server
 npm run dev
+
+# Access the app
+open http://localhost:3010
 ```
 
-7. Open [http://localhost:3010](http://localhost:3010) in your browser
+---
 
-## Usage
+## 📖 Documentation
 
-### Registration
-1. Navigate to the registration page
-2. Create your account with name, email, and password
-3. You'll be automatically logged in after registration
-
-### Dashboard
-The dashboard provides a quick overview of:
-- Total balance across all savings accounts (displayed in IDR)
-- Monthly income and expenses
-- Active goals count
-- Recent transactions
-- Top active goals with progress and days remaining
-
-### Managing Savings Accounts
-1. Go to the "Savings" page
-2. Click "Add Account" to create a new savings account
-3. Choose an icon, color, and initial balance
-4. View all your accounts and their balances
-5. Delete accounts with confirmation dialog
-
-### Tracking Goals
-1. Navigate to the "Goals" page
-2. Click "Create Goal" to set a new financial goal
-3. Specify the target amount and deadline
-4. Optionally link the goal to a savings account for automatic progress tracking
-5. Track your progress visually with progress bars
-6. View days remaining until deadline
-7. Delete goals with confirmation dialog
-
-**Auto-Tracking Feature:**
-- Link a savings account to your goal
-- Progress automatically updates based on the linked account's balance
-- When you add income to the savings account, goal progress increases automatically
-
-### Recording Transactions
-1. Go to the "Transactions" page
-2. Click "Add Transaction"
-3. Choose between income or expense
-4. Enter amount, description, and category
-5. Select which savings account to apply the transaction to
-6. The account balance will automatically update
-7. Delete transactions with confirmation dialog
-
-## Project Structure
+### Project Structure
 
 ```
 be-rich/
-├── prisma/
-│   └── schema.prisma          # Database schema
-├── src/
-│   ├── app/
-│   │   ├── (dashboard)/       # Protected dashboard pages
-│   │   │   ├── page.tsx       # Dashboard
-│   │   │   ├── savings/       # Savings accounts
-│   │   │   ├── goals/         # Goals tracking
-│   │   │   └── transactions/ # Transactions
-│   │   ├── api/              # API routes
-│   │   │   ├── auth/         # Authentication
-│   │   │   ├── savings/      # Savings API
-│   │   │   ├── goals/       # Goals API
-│   │   │   ├── transactions/ # Transactions API
-│   │   │   └── dashboard/    # Dashboard API
-│   │   ├── login/           # Login page
-│   │   └── register/        # Registration page
-│   ├── components/
-│   │   ├── ui/              # shadcn components
-│   │   ├── layout/          # Layout components
-│   │   └── ...
-│   └── lib/
-│       ├── auth.ts           # NextAuth configuration
-│       ├── prisma.ts        # Prisma client
-│       └── getServerSession.ts
-├── .env.example             # Example environment variables
-├── .gitignore               # Git ignore file
-├── package.json
-└── README.md
+├── 📂 prisma/                    # Database schema & migrations
+├── 📂 src/
+│   ├── 📂 app/                  # Next.js App Router
+│   │   ├── 📂 (dashboard)/      # Protected dashboard pages
+│   │   │   ├── 📄 page.tsx     # Dashboard
+│   │   │   ├── 📂 savings/     # Savings accounts
+│   │   │   ├── 📂 goals/       # Goals tracking
+│   │   │   └── 📂 transactions/ # Transactions
+│   │   ├── 📂 api/              # API routes
+│   │   ├── 📂 login/           # Login page
+│   │   └── 📂 register/        # Registration page
+│   ├── 📂 components/          # React components
+│   │   ├── 📂 ui/             # shadcn/ui components
+│   │   └── 📂 layout/         # Layout components
+│   └── 📂 lib/                 # Utilities & configuration
+├── 📄 docker-compose.yml        # Docker services
+├── 📄 Dockerfile               # Container build
+└── 📄 README.md               # This file
 ```
 
-## API Endpoints
+### API Endpoints
 
-### Authentication
-- `POST /api/auth/register` - Register new user
-- `POST /api/auth/[...nextauth]` - NextAuth handlers
-
-### Savings Accounts
-- `GET /api/savings` - List all savings accounts
-- `POST /api/savings` - Create savings account
-- `GET /api/savings/[id]` - Get savings account
-- `PUT /api/savings/[id]` - Update savings account
-- `DELETE /api/savings/[id]` - Delete savings account
-
-### Goals
-- `GET /api/goals` - List all goals
-- `POST /api/goals` - Create goal
-- `GET /api/goals/[id]` - Get goal
-- `PUT /api/goals/[id]` - Update goal
-- `DELETE /api/goals/[id]` - Delete goal
-
-### Transactions
-- `GET /api/transactions` - List transactions
-- `POST /api/transactions` - Create transaction
-- `GET /api/transactions/[id]` - Get transaction
-- `DELETE /api/transactions/[id]` - Delete transaction
-
-### Dashboard
-- `GET /api/dashboard` - Get dashboard aggregated data
-
-## Development
-
-### Building for Production
-```bash
-npm run build
-npm start
+#### Authentication
+```
+POST /api/auth/register     - Register new user
+POST /api/auth/[...nextauth] - NextAuth handlers
 ```
 
-### Linting
-```bash
-npm run lint
+#### Savings Accounts
+```
+GET    /api/savings           - List all accounts
+POST   /api/savings           - Create account
+GET    /api/savings/[id]     - Get account details
+PUT    /api/savings/[id]     - Update account
+DELETE /api/savings/[id]     - Delete account
 ```
 
-## Security Notes
+#### Goals
+```
+GET    /api/goals             - List all goals
+POST   /api/goals             - Create goal
+GET    /api/goals/[id]       - Get goal details
+PUT    /api/goals/[id]       - Update goal
+DELETE /api/goals/[id]       - Delete goal
+```
 
-- Never commit actual credentials to the repository
-- Always use environment variables for sensitive data
-- The `.env` file is gitignored and will not be pushed
-- Use `.env.example` as a template with placeholder values
+#### Transactions
+```
+GET    /api/transactions      - List transactions
+POST   /api/transactions      - Create transaction
+GET    /api/transactions/[id] - Get transaction details
+DELETE /api/transactions/[id] - Delete transaction
+```
 
-## Contributing
+#### Dashboard
+```
+GET /api/dashboard           - Get aggregated dashboard data
+```
 
-Contributions are welcome! Please feel free to submit a Pull Request.
+### Environment Variables
 
-## License
+```env
+# Database
+DATABASE_URL="postgresql://user:pass@localhost:5432/be_rich"
 
-This project is licensed under the MIT License.
+# NextAuth
+NEXTAUTH_URL="http://localhost:3010"
+NEXTAUTH_SECRET="your-secret-key"
+
+# App
+NEXT_PUBLIC_APP_URL="http://localhost:3010"
+PORT=3010
+```
+
+---
+
+## 🛠️ Tech Stack
+
+### Frontend
+- **Framework:** Next.js 16 (App Router)
+- **UI Library:** React 19
+- **Styling:** Tailwind CSS
+- **Components:** shadcn/ui
+- **Icons:** Lucide React
+- **Language:** TypeScript 5.0
+
+### Backend
+- **API:** Next.js API Routes
+- **ORM:** Prisma 5.0
+- **Database:** PostgreSQL 15
+- **Auth:** NextAuth.js v4
+
+### DevOps
+- **Container:** Docker & Docker Compose
+- **Build:** Standalone Output
+- **Validation:** Zod
+- **Package Manager:** npm
+
+---
+
+## 🤝 Contributing
+
+Contributions are welcome! Feel free to submit issues and pull requests.
+
+1. **Fork** the repository
+2. **Create** a feature branch (`git checkout -b feature/amazing-feature`)
+3. **Commit** your changes (`git commit -m 'feat: add amazing feature'`)
+4. **Push** to the branch (`git push origin feature/amazing-feature`)
+5. **Open** a Pull Request
+
+---
+
+## 📄 License
+
+This project is licensed under the MIT License - see the [LICENSE](LICENSE) file for details.
+
+---
+
+## 👨‍💻 Author
+
+**Gunawan Wibisono**
+- GitHub: [@hellogunawan99](https://github.com/hellogunawan99)
+
+---
+
+<div align="center">
+
+**⭐ Star this repo if you found it helpful!**
+
+Made with ❤️ and ☕
+
+</div>
