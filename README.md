@@ -24,9 +24,78 @@ A modern, full-stack personal finance management application built with Next.js 
 
 ## Prerequisites
 
-- Node.js 18+ installed
-- PostgreSQL database server running
-- npm or yarn package manager
+- Node.js 18+ installed (for local development)
+- Docker and Docker Compose installed
+- npm or yarn package manager (for local development)
+
+## Docker Deployment
+
+The easiest way to run BeRich is using Docker Compose, which will set up both the PostgreSQL database and the application.
+
+### Quick Start with Docker
+
+1. Clone the repository:
+```bash
+git clone https://github.com/hellogunawan99/be-rich.git
+cd be-rich
+```
+
+2. Start the application with Docker Compose:
+```bash
+docker-compose up -d
+```
+
+3. Access the application:
+- **URL:** http://localhost:3010
+- **Database:** PostgreSQL on port 5432
+
+4. To view logs:
+```bash
+docker-compose logs -f app
+```
+
+5. To stop:
+```bash
+docker-compose down
+```
+
+6. To rebuild after code changes:
+```bash
+docker-compose up -d --build
+```
+
+### Docker Services
+
+**app** - Next.js application
+- Port: 3010
+- Depends on: db (PostgreSQL)
+
+**db** - PostgreSQL database
+- Port: 5432
+- Credentials: developer / CANcer471422;
+- Database: be_rich
+- Data persists in Docker volume
+
+### Environment Variables
+
+The application uses these environment variables (pre-configured in docker-compose.yml):
+- `DATABASE_URL` - PostgreSQL connection string
+- `NEXTAUTH_URL` - Authentication URL
+- `NEXTAUTH_SECRET` - Session secret key
+- `NEXT_PUBLIC_APP_URL` - Public app URL
+- `PORT` - Server port (3010)
+
+### Database Migrations
+
+When the container starts, you may need to run migrations manually:
+```bash
+docker-compose exec app npx prisma migrate deploy
+```
+
+Or to open Prisma Studio:
+```bash
+docker-compose exec app npx prisma studio
+```
 
 ## Database Setup
 
