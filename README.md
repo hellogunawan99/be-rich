@@ -79,7 +79,7 @@ npx prisma migrate dev
 npm run dev
 ```
 
-7. Open [http://localhost:3000](http://localhost:3000) in your browser
+7. Open [http://localhost:3010](http://localhost:3010) in your browser
 
 ## Usage
 
