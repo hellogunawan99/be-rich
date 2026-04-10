@@ -73,7 +73,7 @@ cd be-rich
 docker-compose up -d
 
 # Access the app
-open http://localhost:3010
+open http://localhost:3060
 ```
 
 ### Option 2: Local Development 💻
@@ -99,7 +99,7 @@ npx prisma migrate dev
 npm run dev
 
 # Access the app
-open http://localhost:3010
+open http://localhost:3000
 ```
 
 ---
@@ -176,12 +176,12 @@ GET /api/dashboard           - Get aggregated dashboard data
 DATABASE_URL="postgresql://user:pass@localhost:5432/be_rich"
 
 # NextAuth
-NEXTAUTH_URL="http://localhost:3010"
+NEXTAUTH_URL="http://localhost:3000"
 NEXTAUTH_SECRET="your-secret-key"
 
 # App
-NEXT_PUBLIC_APP_URL="http://localhost:3010"
-PORT=3010
+NEXT_PUBLIC_APP_URL="http://localhost:3000"
+PORT=3000
 ```
 
 ---
